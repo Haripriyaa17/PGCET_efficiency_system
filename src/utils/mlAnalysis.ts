@@ -150,14 +150,6 @@ function generateReasons(data: PGCETData[], metrics: EfficiencyMetrics, courseSt
     reasons.push(`Courses with low demand: ${highVacancyCourses.map(c => c.course).join(', ')}`);
   }
 
-  if (metrics.avgExamCost > 5000) {
-    reasons.push(`High examination costs (₹${metrics.avgExamCost.toFixed(0)}) may deter students`);
-  }
-
-  if (metrics.avgStressIndex > 0.7) {
-    reasons.push(`High student stress index (${metrics.avgStressIndex.toFixed(2)}/1.0) affecting participation`);
-  }
-
   if (metrics.yearOverYearTrend < -5) {
     reasons.push(`Declining trend: Seat fill rate dropped by ${Math.abs(metrics.yearOverYearTrend).toFixed(1)}% year-over-year`);
   }
@@ -173,8 +165,6 @@ function calculateEfficiencyScore(metrics: EfficiencyMetrics, courseStats: Cours
   let score = 100;
 
   score -= metrics.overallVacancyRate * 0.8;
-  score -= Math.max(0, metrics.avgExamCost - 3000) / 100;
-  score -= Math.max(0, metrics.avgStressIndex - 0.5) * 20;
 
   if (metrics.yearOverYearTrend < 0) {
     score -= Math.abs(metrics.yearOverYearTrend) * 2;
