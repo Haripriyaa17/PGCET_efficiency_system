@@ -100,21 +100,7 @@ export function ResultsDashboard({ result, onReset }: ResultsDashboardProps) {
         </div>
 
         {/* Key Metrics Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          {result.metrics.avgExamCost > 0 && (
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <p className="text-sm font-medium text-gray-600 mb-2">Avg Exam Cost</p>
-              <p className="text-2xl font-bold text-gray-900">₹{result.metrics.avgExamCost.toFixed(0)}</p>
-            </div>
-          )}
-
-          {result.metrics.avgStressIndex > 0 && (
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <p className="text-sm font-medium text-gray-600 mb-2">Student Stress Index</p>
-              <p className="text-2xl font-bold text-gray-900">{result.metrics.avgStressIndex.toFixed(2)}/1.0</p>
-            </div>
-          )}
-
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
           <div className="bg-white rounded-lg shadow-md p-6">
             <p className="text-sm font-medium text-gray-600 mb-2">Year-over-Year Trend</p>
             <div className="flex items-center gap-2">
@@ -134,6 +120,17 @@ export function ResultsDashboard({ result, onReset }: ResultsDashboardProps) {
                 </>
               )}
             </div>
+          </div>
+
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <p className="text-sm font-medium text-gray-600 mb-2">System Status</p>
+            <p className="text-gray-700">
+              {result.verdict === 'Efficient'
+                ? '✓ System operating at optimal efficiency levels'
+                : result.verdict === 'Moderately Efficient'
+                ? '⚠ System requires optimization in key areas'
+                : '✗ System needs significant improvements'}
+            </p>
           </div>
         </div>
 
@@ -167,7 +164,7 @@ export function ResultsDashboard({ result, onReset }: ResultsDashboardProps) {
         </div>
 
         {/* Summary Statistics Table */}
-        <div className="bg-white rounded-lg shadow-md p-6">
+        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-4">Detailed Statistics</h2>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -208,6 +205,53 @@ export function ResultsDashboard({ result, onReset }: ResultsDashboardProps) {
                 </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+
+        {/* Executive Summary */}
+        <div className={`rounded-lg border-2 p-8 ${
+          result.verdict === 'Efficient' ? 'bg-green-50 border-green-200' :
+          result.verdict === 'Moderately Efficient' ? 'bg-blue-50 border-blue-200' :
+          'bg-orange-50 border-orange-200'
+        }`}>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Executive Summary</h2>
+
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold text-gray-900 mb-2">Overall Assessment</h3>
+              <p className="text-gray-700">
+                {result.verdict === 'Efficient'
+                  ? 'The PGCET system is functioning efficiently with strong seat utilization across courses. The current operational framework demonstrates effective management of seat allocation and course demand matching.'
+                  : result.verdict === 'Moderately Efficient'
+                  ? 'The PGCET system operates with moderate efficiency. While the core seat allocation system functions adequately, there are notable areas where improvements can enhance overall performance and resource utilization.'
+                  : 'The PGCET system currently faces efficiency challenges that require strategic intervention. Significant improvements in seat management, course demand assessment, and capacity planning are recommended.'}
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-gray-900 mb-2">Cost Optimization Recommendations</h3>
+              <p className="text-gray-700">
+                To optimize operational costs, consider the following strategies:
+              </p>
+              <ul className="list-disc list-inside text-gray-700 mt-2 space-y-1">
+                <li>Streamline exam administration processes to reduce per-candidate costs</li>
+                <li>Consolidate courses with low enrollment to eliminate redundancy</li>
+                <li>Implement digital infrastructure to reduce infrastructure and venue costs</li>
+                <li>Develop targeted marketing for undersubscribed programs to improve seat fill rates</li>
+                <li>Review course capacity allocations based on historical demand patterns</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-gray-900 mb-2">Key Recommendations</h3>
+              <p className="text-gray-700">
+                {result.verdict === 'Efficient'
+                  ? 'Maintain current operational standards while exploring opportunities to further enhance student satisfaction and system responsiveness to market changes.'
+                  : result.verdict === 'Moderately Efficient'
+                  ? 'Address the identified inefficiencies through targeted interventions. Prioritize monitoring courses with declining demand and adjusting seat allocations accordingly.'
+                  : 'Implement immediate corrective measures to address seat vacancy issues. Conduct comprehensive analysis of program demand and consider restructuring course offerings based on market requirements.'}
+              </p>
+            </div>
           </div>
         </div>
       </div>

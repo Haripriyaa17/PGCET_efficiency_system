@@ -55,14 +55,14 @@ function App() {
           <div className="mt-8 pt-8 border-t border-gray-200">
             <h3 className="font-semibold text-gray-900 mb-3">CSV Format Example</h3>
             <div className="bg-gray-50 rounded-lg p-4 text-sm font-mono text-gray-700 overflow-x-auto">
-              <div>Year,Course,Total_Seats,Seats_Filled,Vacant_Seats,Avg_Exam_Cost,Student_Stress_Index</div>
-              <div>2021,MCA,7144,5623,1521,5000,0.68</div>
-              <div>2022,MBA,8000,6400,1600,5200,0.72</div>
-              <div>2023,MTech,6000,4200,1800,5500,0.75</div>
+              <div>Year,Course,Total_Seats,Seats_Filled,Vacant_Seats</div>
+              <div>2021,MCA,7144,5623,1521</div>
+              <div>2022,MBA,8000,6400,1600</div>
+              <div>2023,MTech,6000,4200,1800</div>
             </div>
             <p className="text-xs text-gray-600 mt-3">
               <strong>Required:</strong> Year, Course, Total_Seats, Seats_Filled<br />
-              <strong>Optional:</strong> Vacant_Seats, Avg_Exam_Cost, Student_Stress_Index
+              <strong>Optional:</strong> Vacant_Seats (calculated automatically if not provided)
             </p>
           </div>
 
